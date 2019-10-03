@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
                 [
                     'first_name' => 'ladee',
                     'last_name'  => 'linter',
+                    'name'       => 'ladee linter',
                     'age'        => 99,
                     'email'      => 'lindaladee@causelabs.com',
                     'secret'     => 'cmVzb3VyY2UgdmlvbGF0aW9u',
