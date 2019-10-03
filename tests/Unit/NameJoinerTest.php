@@ -13,7 +13,9 @@ class NameJoinerTest extends TestCase
         $nameJoiner = new NameJoiner();
 
         $nameJoiner->handle($this->getValidRequest(), function($result) {
-            $this->assertObjectHasAttribute('name', $result->data[0]);
+            $this->assertArrayHasKey('name', $result->data[0]);
+
+            return function() {};
         });
     }
 
@@ -22,22 +24,26 @@ class NameJoinerTest extends TestCase
         $nameJoiner = new NameJoiner();
 
         $nameJoiner->handle($this->getValidRequest(), function($nextRequest) {
-            $this->assertEquals('Foo Bar', $nextRequest->data[0]->name);
+            $this->assertEquals('Foo Bar', $nextRequest->data[0]['name']);
+
+            return function() {};
         });
 
     }
 
     private function getValidRequest(): Request
     {
-        $data = new \stdClass;
+        $request = new Request();
 
-        $data->first_name = 'Foo';
-        $data->last_name  = 'Bar';
-
-        return new Request([
+        $request->replace([
             'data' => [
-                $data
+                [
+                    'first_name' => 'Foo',
+                    'last_name' => 'Bar',
+                ]
             ]
         ]);
+
+        return $request;
     }
 }
