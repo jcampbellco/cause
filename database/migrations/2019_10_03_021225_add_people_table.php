@@ -11,7 +11,7 @@ class AddPeopleTable extends Migration
         Schema::create('people', function(Blueprint $table) {
             $table->unsignedInteger('id', true);
             $table->json('emails');
-            $table->json('people');
+            $table->json('data');
             $table->timestamps();
             $table->ipAddress('request_ip');
         });

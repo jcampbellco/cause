@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
                 'codyduder@causelabs.com',
                 'lindaladee@causelabs.com',
             ]),
-            'people' => json_encode([
+            'data' => json_encode([
                 [
                     'first_name' => 'ladee',
                     'last_name'  => 'linter',
