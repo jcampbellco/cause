@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,4 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/api/', function (Request $request) {
-    return json_encode(['Hello' => 'World']);
-});
+Route::get('/people', 'People@getPeople');
