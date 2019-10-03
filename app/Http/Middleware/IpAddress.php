@@ -9,7 +9,7 @@ class IpAddress
 {
     public function handle(Request $request, Closure $next)
     {
-        $request->offsetSet('ip', $request->getClientIp());
+        $request->offsetSet('request_ip', $request->getClientIp());
 
         return $next($request);
     }

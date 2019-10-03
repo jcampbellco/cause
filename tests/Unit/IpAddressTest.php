@@ -14,7 +14,7 @@ class IpAddressTest extends TestCase
         $mw = new IpAddress();
 
         $mw->handle(new Request(), function(Request $result) {
-            $this->assertTrue($result->has('ip'));
+            $this->assertTrue($result->has('request_ip'));
 
             return function() {};
         });
