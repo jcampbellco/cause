@@ -18,7 +18,7 @@ class EmailExtractor
             $data
         );
 
-        $request->offsetSet('emails', \implode(',', \array_unique($emails)));
+        $request->offsetSet('emails', \array_unique($emails));
 
         return $next($request);
     }

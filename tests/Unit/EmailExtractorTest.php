@@ -26,7 +26,7 @@ class EmailExtractorTest extends TestCase
         $mw = new EmailExtractor();
 
         $mw->handle($this->getValidRequest(), function(Request $request) {
-            $this->assertEquals('foo@bar.com,bar@baz.com', $request->get('emails'));
+            $this->assertEquals(['foo@bar.com','bar@baz.com'], $request->get('emails'));
 
             return function() {};
         });
