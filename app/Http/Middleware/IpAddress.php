@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class IpAddress
 {
-    public function handle(Request $request, Closure $next): Closure
+    public function handle(Request $request, Closure $next)
     {
         $request->offsetSet('ip', $request->getClientIp());
 

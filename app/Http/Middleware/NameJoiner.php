@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class NameJoiner
 {
-    public function handle(Request $request, Closure $next): Closure
+    public function handle(Request $request, Closure $next)
     {
         $data = $request->offsetGet('data');
 
