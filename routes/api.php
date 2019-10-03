@@ -11,4 +11,11 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/people', 'People@getPeople');
+Route::post('/people', 'People@createPeople')->middleware(
+    'namejoiner',
+    'ipaddress',
+    'emailextractor'
+);
