@@ -13,6 +13,7 @@ class AddPeopleTable extends Migration
             $table->json('emails');
             $table->json('data');
             $table->timestamps();
+            $table->softDeletes();
             $table->ipAddress('request_ip');
         });
     }

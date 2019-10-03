@@ -19,3 +19,4 @@ Route::post('/people', 'People@createPeople')->middleware(
     'ipaddress',
     'emailextractor'
 );
+Route::delete('/people/{id}', 'People@deletePeople');
