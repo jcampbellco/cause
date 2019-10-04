@@ -1,8 +1,0 @@
-<!DOCTYPE html>
-<html>
-    <head>
-    </head>
-    <body>
-        <h3>Hello, World!</h3>
-    </body>
-</html>
