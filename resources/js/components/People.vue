@@ -1,26 +1,26 @@
 <template>
-        <div class="card">
-            <div class="card-header" @click="toggleExpand">
-                <h5>
-                    <a class="btn btn-link">
-                        <font-awesome-icon :icon="'chevron-' + (this.isExpanded ? 'down' : 'right')"></font-awesome-icon>
-                        {{ this.emails | json }}
-                    </a>
-                    <a class="btn btn-danger float-right" @click="del">Delete</a>
-                </h5>
-            </div>
-            <div :class="(!this.isExpanded ? 'd-none' : '')">
-                <div class="card-body">
-                    <div class="card-columns">
-                        <contacts-component
-                            v-for="contact in this.data"
-                            v-bind="contact"
-                            :key="contact.email"
-                        ></contacts-component>
-                    </div>
+    <div class="card">
+        <div class="card-header" @click="toggleExpand">
+            <h5>
+                <a class="btn btn-link">
+                    <font-awesome-icon :icon="'chevron-' + (this.isExpanded ? 'down' : 'right')"></font-awesome-icon>
+                    {{ this.emails | json }}
+                </a>
+                <a class="btn btn-danger float-right" @click="del">Delete</a>
+            </h5>
+        </div>
+        <div :class="(!this.isExpanded ? 'd-none' : '')">
+            <div class="card-body">
+                <div class="card-columns">
+                    <contacts-component
+                        v-for="contact in this.data"
+                        v-bind="contact"
+                        :key="contact.email"
+                    ></contacts-component>
                 </div>
             </div>
         </div>
+    </div>
 </template>
 <script>
     import ContactsComponent from './Contacts.vue'

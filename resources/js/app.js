@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faChevronRight, faChevronDown, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faChevronRight, faChevronDown, faPlusSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import Axios from "axios";
 
 library.add(faChevronRight);
 library.add(faChevronDown);
 library.add(faPlusSquare);
+library.add(faTrash);
+library.add(faSave);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

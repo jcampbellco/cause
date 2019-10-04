@@ -3,8 +3,20 @@
         <div class="heading">
             <h1>
                 Contacts and People
-                <a class="float-right" id="addNew">
+                <a class="float-right" id="addNew" @click="create">
                     <font-awesome-icon icon="plus-square"></font-awesome-icon>
+                </a>
+            </h1>
+        </div>
+        <div :class="this.newPeople.length > 0 ? '' : 'd-none'">
+            <add-component
+                v-for="people in newPeople"
+                v-bind="people"
+                :key="_uid"
+            ></add-component>
+            <h1>
+                <a style="padding-left: 10px;" @click="submit">
+                    <font-awesome-icon icon="save" />
                 </a>
             </h1>
         </div>
@@ -24,7 +36,7 @@
         padding: 3px 10px 20px 10px;
     }
     .accordion {
-        margin: 0 10px;
+        margin: 10px;
     }
 </style>
 
@@ -38,6 +50,7 @@
     }
 
     import PeopleComponent from './People.vue';
+    import AddComponent from './Add.vue';
 
     import Axios from 'axios';
 
@@ -45,14 +58,16 @@
         data() {
             return {
                 peopleCollection: [],
+                newPeople: [],
                 working: false
             }
         },
         methods: {
             create() {
-                this.axios.post('/api/people').then(({ data }) => {
-                    this.peopleCollection.push(new People(data));
-                });
+                this.newPeople.push({});
+            },
+            submit() {
+                console.log(this.$refs.form, this.$refs.add, this.newPeople);
             },
             read() {
                 this.axios.get('/api/people').then(({ data }) => {
@@ -69,9 +84,11 @@
             }
         },
         watch: {
+
         },
         components: {
-            PeopleComponent
+            PeopleComponent,
+            AddComponent
         },
         created() {
             this.axios = Axios;
