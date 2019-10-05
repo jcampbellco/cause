@@ -11705,36 +11705,41 @@ function Contact(_ref2) {
       this.newContacts.push(new Contact({}));
     },
     submit: function submit() {
-      this.axios.post('/api/people', this.newContacts).then(function (response) {
-        console.log(response);
+      var _this = this;
+
+      this.axios.post('/api/people', {
+        data: this.newContacts
+      }).then(function (response) {
+        _this.peopleCollection.push(response.data);
+
+        _this.newContacts = [];
       });
     },
     read: function read() {
-      var _this = this;
+      var _this2 = this;
 
       this.axios.get('/api/people').then(function (_ref3) {
         var data = _ref3.data;
         data.forEach(function (people) {
-          _this.peopleCollection.push(new People(people));
+          _this2.peopleCollection.push(new People(people));
         });
       });
     },
     del: function del(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.axios["delete"]("/api/people/".concat(id)).then(function () {
-        var index = _this2.peopleCollection.findIndex(function (people) {
+        var index = _this3.peopleCollection.findIndex(function (people) {
           return people.id === id;
         });
 
-        _this2.peopleCollection.splice(index, 1);
+        _this3.peopleCollection.splice(index, 1);
       });
     },
     deleteNewContact: function deleteNewContact(index) {
       this.newContacts.splice(index, 1);
     }
   },
-  watch: {},
   components: {
     PeopleComponent: _People_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     AddComponent: _Add_vue__WEBPACK_IMPORTED_MODULE_1__["default"]

@@ -76,9 +76,10 @@
                 this.newContacts.push(new Contact({}));
             },
             submit() {
-                this.axios.post('/api/people', this.newContacts).then(( response ) => {
-                    console.log(response)
-                })
+                this.axios.post('/api/people', { data: this.newContacts }).then(( response ) => {
+                    this.peopleCollection.push(response.data);
+                    this.newContacts = [];
+                });
             },
             read() {
                 this.axios.get('/api/people').then(({ data }) => {
@@ -96,9 +97,6 @@
             deleteNewContact(index) {
                 this.newContacts.splice(index, 1);
             }
-        },
-        watch: {
-
         },
         components: {
             PeopleComponent,
