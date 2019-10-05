@@ -8,7 +8,7 @@
                 </a>
             </h1>
         </div>
-        <div :class="this.newContacts.length > 0 ? '' : 'd-none'">
+        <div :class="['form', this.newContacts.length > 0 ? '' : 'd-none']">
             <add-component
                 v-for="(contact, i) in newContacts"
                 v-bind="contact"
@@ -51,12 +51,13 @@
         this.updated = updated;
     }
 
-    function Contact({ first_name, last_name, email, age, secret }) {
+    function Contact({ first_name, last_name, email, age, secret, errors }) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.age = age;
         this.secret = secret;
+        this.errors = errors;
     }
 
     import PeopleComponent from './People.vue';
@@ -68,7 +69,8 @@
         data() {
             return {
                 peopleCollection: [],
-                newContacts: []
+                newContacts: [],
+                errors: []
             }
         },
         methods: {
@@ -77,8 +79,16 @@
             },
             submit() {
                 this.axios.post('/api/people', { data: this.newContacts }).then(( response ) => {
+                    console.log(response);
                     this.peopleCollection.push(response.data);
                     this.newContacts = [];
+                }).catch(error => {
+                    console.log(error.response);
+                    if (error.response.status === 422) {
+                        error.response.data.forEach((errors, index) => {
+                            this.newContacts[index].errors = errors;
+                        })
+                    }
                 });
             },
             read() {

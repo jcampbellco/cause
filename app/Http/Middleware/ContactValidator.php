@@ -34,7 +34,7 @@ class ContactValidator
         }
 
         if (\count($errors) > 0) {
-            return new JsonResponse($errors, 402);
+            return new JsonResponse($errors, 422);
         }
 
         return $next($request);
