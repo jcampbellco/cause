@@ -11583,12 +11583,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AddComponent',
   props: {
     contactObj: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    deleteRow: function deleteRow(key) {
+      this.$emit('deleteNewContact', key);
     }
   }
 });
@@ -11608,6 +11620,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Add_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Add.vue */ "./resources/js/components/Add.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+//
 //
 //
 //
@@ -11684,8 +11697,7 @@ function Contact(_ref2) {
   data: function data() {
     return {
       peopleCollection: [],
-      newContacts: [],
-      working: false
+      newContacts: []
     };
   },
   methods: {
@@ -11693,7 +11705,6 @@ function Contact(_ref2) {
       this.newContacts.push(new Contact({}));
     },
     submit: function submit() {
-      console.log(this.newContacts);
       this.axios.post('/api/people', this.newContacts).then(function (response) {
         console.log(response);
       });
@@ -11718,6 +11729,9 @@ function Contact(_ref2) {
 
         _this2.peopleCollection.splice(index, 1);
       });
+    },
+    deleteNewContact: function deleteNewContact(index) {
+      this.newContacts.splice(index, 1);
     }
   },
   watch: {},
@@ -11779,6 +11793,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Contacts_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Contacts.vue */ "./resources/js/components/Contacts.vue");
+//
+//
 //
 //
 //
@@ -12984,7 +13000,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group" }, [
+  return _c("div", { staticClass: "form-group jumbotron" }, [
     _c("div", { staticClass: "form-row" }, [
       _c("div", { staticClass: "col" }, [
         _c("label", [
@@ -13127,6 +13143,24 @@ var render = function() {
           })
         ])
       ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-danger",
+            on: {
+              click: function($event) {
+                return _vm.deleteRow(_vm.$vnode.key)
+              }
+            }
+          },
+          [_c("font-awesome-icon", { attrs: { icon: "trash" } })],
+          1
+        )
+      ])
     ])
   ])
 }
@@ -13177,7 +13211,11 @@ var render = function() {
           return _c(
             "add-component",
             _vm._b(
-              { key: i, attrs: { "contact-obj": contact } },
+              {
+                key: i,
+                attrs: { "contact-obj": contact },
+                on: { deleteNewContact: _vm.deleteNewContact }
+              },
               "add-component",
               contact,
               false
@@ -13312,7 +13350,8 @@ var render = function() {
         _c(
           "a",
           { staticClass: "btn btn-danger float-right", on: { click: _vm.del } },
-          [_vm._v("Delete")]
+          [_c("font-awesome-icon", { attrs: { icon: "trash" } })],
+          1
         )
       ])
     ]),

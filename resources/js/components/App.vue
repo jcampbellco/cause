@@ -14,6 +14,7 @@
                 v-bind="contact"
                 :contact-obj="contact"
                 :key="i"
+                @deleteNewContact="deleteNewContact"
             ></add-component>
             <h1>
                 <a style="padding-left: 10px;" @click="submit">
@@ -67,8 +68,7 @@
         data() {
             return {
                 peopleCollection: [],
-                newContacts: [],
-                working: false
+                newContacts: []
             }
         },
         methods: {
@@ -76,7 +76,6 @@
                 this.newContacts.push(new Contact({}));
             },
             submit() {
-                console.log(this.newContacts);
                 this.axios.post('/api/people', this.newContacts).then(( response ) => {
                     console.log(response)
                 })
@@ -93,6 +92,9 @@
                     let index = this.peopleCollection.findIndex(people => people.id === id);
                     this.peopleCollection.splice(index, 1);
                 });
+            },
+            deleteNewContact(index) {
+                this.newContacts.splice(index, 1);
             }
         },
         watch: {

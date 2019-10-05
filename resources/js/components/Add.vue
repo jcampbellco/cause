@@ -1,5 +1,5 @@
 <template>
-    <div class="form-group">
+    <div class="form-group jumbotron">
         <div class="form-row">
             <div class="col">
                 <label>
@@ -36,6 +36,13 @@
                 </label>
             </div>
         </div>
+        <div class="form-row">
+            <div class="col">
+                <a class="btn btn-danger" @click="deleteRow($vnode.key)">
+                    <font-awesome-icon icon="trash" />
+                </a>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -45,6 +52,11 @@
             contactObj: {
                 type: Object,
                 required: true
+            }
+        },
+        methods: {
+            deleteRow(key) {
+                this.$emit('deleteNewContact', key);
             }
         }
     }
