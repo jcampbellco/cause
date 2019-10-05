@@ -37,6 +37,7 @@ class Kernel extends HttpKernel
         ],
 
         'contact.submission.transformer' => [
+            'contactvalidator',
             'namejoiner',
             'ipaddress',
             'emailextractor',
@@ -63,6 +64,7 @@ class Kernel extends HttpKernel
         'ipaddress' => \App\Http\Middleware\IpAddress::class,
         'emailextractor' => \App\Http\Middleware\EmailExtractor::class,
         'agesorter' => \App\Http\Middleware\AgeSorter::class,
+        'contactvalidator' => \App\Http\Middleware\ContactValidator::class,
     ];
 
     /**
