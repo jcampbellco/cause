@@ -55,6 +55,7 @@ class Kernel extends HttpKernel
         'namejoiner' => \App\Http\Middleware\NameJoiner::class,
         'ipaddress' => \App\Http\Middleware\IpAddress::class,
         'emailextractor' => \App\Http\Middleware\EmailExtractor::class,
+        'agesorter' => \App\Http\Middleware\AgeSorter::class,
     ];
 
     /**
