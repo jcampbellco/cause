@@ -6,7 +6,9 @@
                     <font-awesome-icon :icon="'chevron-' + (this.isExpanded ? 'down' : 'right')"></font-awesome-icon>
                     {{ this.emails | json }}
                 </a>
-                <a class="btn btn-danger float-right" @click="del">Delete</a>
+                <a class="btn btn-danger float-right" @click="del">
+                    <font-awesome-icon icon="trash" />
+                </a>
             </h5>
         </div>
         <div :class="(!this.isExpanded ? 'd-none' : '')">
