@@ -11584,18 +11584,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      id: null,
-      email: null,
-      first_name: null,
-      last_name: null,
-      name: null,
-      age: null,
-      secret: null
-    };
-  },
-  methods: {}
+  name: 'AddComponent',
+  props: {
+    contactObj: {
+      type: Object,
+      required: true
+    }
+  }
 });
 
 /***/ }),
@@ -11655,6 +11650,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 function People(_ref) {
   var id = _ref.id,
       emails = _ref.emails,
@@ -11668,6 +11664,19 @@ function People(_ref) {
   this.updated = updated;
 }
 
+function Contact(_ref2) {
+  var first_name = _ref2.first_name,
+      last_name = _ref2.last_name,
+      email = _ref2.email,
+      age = _ref2.age,
+      secret = _ref2.secret;
+  this.first_name = first_name;
+  this.last_name = last_name;
+  this.email = email;
+  this.age = age;
+  this.secret = secret;
+}
+
 
 
 
@@ -11675,22 +11684,25 @@ function People(_ref) {
   data: function data() {
     return {
       peopleCollection: [],
-      newPeople: [],
+      newContacts: [],
       working: false
     };
   },
   methods: {
     create: function create() {
-      this.newPeople.push({});
+      this.newContacts.push(new Contact({}));
     },
     submit: function submit() {
-      console.log(this.$refs.form, this.$refs.add, this.newPeople);
+      console.log(this.newContacts);
+      this.axios.post('/api/people', this.newContacts).then(function (response) {
+        console.log(response);
+      });
     },
     read: function read() {
       var _this = this;
 
-      this.axios.get('/api/people').then(function (_ref2) {
-        var data = _ref2.data;
+      this.axios.get('/api/people').then(function (_ref3) {
+        var data = _ref3.data;
         data.forEach(function (people) {
           _this.peopleCollection.push(new People(people));
         });
@@ -12982,18 +12994,22 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.first_name,
-                expression: "first_name"
+                value: _vm.$props.contactObj.first_name,
+                expression: "$props.contactObj.first_name"
               }
             ],
             attrs: { placeholder: "Joe" },
-            domProps: { value: _vm.first_name },
+            domProps: { value: _vm.$props.contactObj.first_name },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.first_name = $event.target.value
+                _vm.$set(
+                  _vm.$props.contactObj,
+                  "first_name",
+                  $event.target.value
+                )
               }
             }
           })
@@ -13008,18 +13024,22 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.last_name,
-                expression: "last_name"
+                value: _vm.$props.contactObj.last_name,
+                expression: "$props.contactObj.last_name"
               }
             ],
             attrs: { id: "last_name", placeholder: "Smith" },
-            domProps: { value: _vm.last_name },
+            domProps: { value: _vm.$props.contactObj.last_name },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.last_name = $event.target.value
+                _vm.$set(
+                  _vm.$props.contactObj,
+                  "last_name",
+                  $event.target.value
+                )
               }
             }
           })
@@ -13036,18 +13056,18 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.email,
-                expression: "email"
+                value: _vm.$props.contactObj.email,
+                expression: "$props.contactObj.email"
               }
             ],
             attrs: { id: "email", placeholder: "joe.smith@email.com" },
-            domProps: { value: _vm.email },
+            domProps: { value: _vm.$props.contactObj.email },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.email = $event.target.value
+                _vm.$set(_vm.$props.contactObj, "email", $event.target.value)
               }
             }
           })
@@ -13062,18 +13082,18 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.age,
-                expression: "age"
+                value: _vm.$props.contactObj.age,
+                expression: "$props.contactObj.age"
               }
             ],
             attrs: { id: "age", placeholder: "23" },
-            domProps: { value: _vm.age },
+            domProps: { value: _vm.$props.contactObj.age },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.age = $event.target.value
+                _vm.$set(_vm.$props.contactObj, "age", $event.target.value)
               }
             }
           })
@@ -13090,18 +13110,18 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.secret,
-                expression: "secret"
+                value: _vm.$props.contactObj.secret,
+                expression: "$props.contactObj.secret"
               }
             ],
             attrs: { id: "secret", placeholder: "ABC123" },
-            domProps: { value: _vm.secret },
+            domProps: { value: _vm.$props.contactObj.secret },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.secret = $event.target.value
+                _vm.$set(_vm.$props.contactObj, "secret", $event.target.value)
               }
             }
           })
@@ -13151,12 +13171,17 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { class: this.newPeople.length > 0 ? "" : "d-none" },
+      { class: this.newContacts.length > 0 ? "" : "d-none" },
       [
-        _vm._l(_vm.newPeople, function(people) {
+        _vm._l(_vm.newContacts, function(contact, i) {
           return _c(
             "add-component",
-            _vm._b({ key: _vm._uid }, "add-component", people, false)
+            _vm._b(
+              { key: i, attrs: { "contact-obj": contact } },
+              "add-component",
+              contact,
+              false
+            )
           )
         }),
         _vm._v(" "),

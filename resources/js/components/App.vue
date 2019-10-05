@@ -8,11 +8,12 @@
                 </a>
             </h1>
         </div>
-        <div :class="this.newPeople.length > 0 ? '' : 'd-none'">
+        <div :class="this.newContacts.length > 0 ? '' : 'd-none'">
             <add-component
-                v-for="people in newPeople"
-                v-bind="people"
-                :key="_uid"
+                v-for="(contact, i) in newContacts"
+                v-bind="contact"
+                :contact-obj="contact"
+                :key="i"
             ></add-component>
             <h1>
                 <a style="padding-left: 10px;" @click="submit">
@@ -41,12 +42,20 @@
 </style>
 
 <script>
-    function People({ id, emails, data, created, updated}) {
+    function People({ id, emails, data, created, updated }) {
         this.id = id;
         this.emails = emails;
         this.data = data;
         this.created = created;
         this.updated = updated;
+    }
+
+    function Contact({ first_name, last_name, email, age, secret }) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.age = age;
+        this.secret = secret;
     }
 
     import PeopleComponent from './People.vue';
@@ -58,16 +67,19 @@
         data() {
             return {
                 peopleCollection: [],
-                newPeople: [],
+                newContacts: [],
                 working: false
             }
         },
         methods: {
             create() {
-                this.newPeople.push({});
+                this.newContacts.push(new Contact({}));
             },
             submit() {
-                console.log(this.$refs.form, this.$refs.add, this.newPeople);
+                console.log(this.newContacts);
+                this.axios.post('/api/people', this.newContacts).then(( response ) => {
+                    console.log(response)
+                })
             },
             read() {
                 this.axios.get('/api/people').then(({ data }) => {
