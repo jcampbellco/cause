@@ -7,6 +7,9 @@
                     <font-awesome-icon icon="plus-square"></font-awesome-icon>
                 </a>
             </h1>
+            <small class="text-center">
+                FYI: The database on this demo application is dropped and re-seeded hourly. Data entered will not persist.
+            </small>
         </div>
         <div :class="['form', this.newContacts.length > 0 ? '' : 'd-none']">
             <add-component

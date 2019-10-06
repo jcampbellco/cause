@@ -3,6 +3,11 @@
 # doing anything quite advanced with your setup you probably won't need a full Debian-based image
 FROM php:fpm-alpine
 
+# start the cron process so the reset-data script works
+COPY reset-data.sh /etc/periodic/15min/reset-data.sh
+RUN chmod +x /etc/periodic/15min/reset-data.sh
+RUN crond -b -S -l 8
+
 RUN apk update
 
 RUN apk add icu-libs
